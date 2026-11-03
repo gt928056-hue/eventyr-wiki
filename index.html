@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Eventyr Wiki</title>
+<meta name="description" content="The player wiki for Eventyr, a Minecraft RPG server: every weapon, move, boss, structure and system explained.">
+<meta property="og:title" content="Eventyr Wiki">
+<meta property="og:description" content="Every weapon, move, boss, structure and system of the Eventyr server, explained simply.">
+<meta name="theme-color" content="#0d0b10">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="top">
+  <div class="topin">
+    <a class="brand" href="#start"><span class="gem"></span>EVENTYR</a>
+    <div class="search"><input id="q" type="search" placeholder="Search anything: copper pickaxe, boss, backpack..." autocomplete="off" aria-label="Search"><kbd>/</kbd><div id="sres" class="sres"></div></div>
+    <button class="burger" id="burger" aria-label="Menu">&#9776;</button>
+  </div>
+  <nav id="nav" class="nav"></nav>
+</header>
+<div class="herobg" style="--hero:url('')"></div>
+<main id="app"></main>
+<footer class="foot">Eventyr wiki. Made for the six of us. Press <kbd>/</kbd> to search. <button class="btn sm" id="copyall" title="Copy the whole game explained, for an AI assistant">Copy everything for AI</button></footer>
+<a class="helpfab" href="#next" title="Not sure what to do? Tap here">Stuck? What now?</a>
+<div id="toast" class="toast">Copied!</div>
+<script src="data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
