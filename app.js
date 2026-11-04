@@ -288,7 +288,7 @@ function pItem(e){
     h+='<div class="panel"><h3>'+esc(e.myth.epithet)+'</h3><p style="margin:0 0 6px">'+esc(e.myth.playstyle)+'</p>'+(e.myth.whisper?'<p class="note">When claimed: &ldquo;'+esc(e.myth.whisper)+'&rdquo;</p>':'')+'</div>';
     h+='<div class="panel"><h3>Mythic moves</h3><div class="moves">'+e.myth.moves.map(function(m){var pas=/Passive|Awakening/.test(m.t);return '<div class="move"><span class="key'+(m.ult?' ult':pas?' pas':'')+'">'+esc(m.t)+'</span><div><b>'+esc(m.name)+'</b><p>'+esc(m.text)+'</p>'+(m.mech?'<div class="mech">'+esc(m.mech)+'</div>':'')+'</div><span></span></div>';}).join('')+'</div></div>';
     if(e.ab.length)h+='<div class="panel"><h3>Ability details and cooldowns</h3>'+movesHtml(e.ab)+'</div>';
-    h+='<div class="panel"><h3>Only one exists</h3><p style="margin:0">There is exactly one '+esc(e.name)+' on the server. <a href="#sys/mythic_rules">Read the mythic rules</a>.</p></div>';
+    h+='<div class="panel"><h3>Only one exists</h3><p style="margin:0">There is exactly one '+esc(e.name)+' on the server. <a href="#sys/mythic_rules">Read the mythic rules</a>.</p><p style="margin:8px 0 0">Held by: <b class="holder" data-m="'+esc(e.id)+'">checking...</b></p></div>';
   }else{
     h+='<div class="panel"><h3>What it does</h3>'+(e.type==='artifact'&&e.lore?'<p style="margin:0 0 8px;font-size:16px">'+esc(e.lore)+'</p>':'')+(e.ab.length?movesHtml(e.ab):(e.type==='artifact'?'':'<p style="margin:0;color:var(--mut)">No special moves: it is all about its stats.</p>'))+'</div>';
   }
@@ -387,7 +387,7 @@ function pSys(e){
     h+='</div>';
   });
   if(pic[e.id])h+='<h2>Gallery</h2>'+img(pic[e.id],'render',e.name);
-  if(e.id==='mythic_rules')h+='<p><a href="#mythics">See all mythics</a></p>';
+  if(e.id==='mythic_rules'){h+='<div class="panel"><h3>Who holds each mythic (live)</h3><ul class="plain">'+D.items.filter(function(x){return x.myth;}).map(function(x){return '<li><a href="#'+x.r+'">'+esc(x.name)+'</a>: <b class="holder" data-m="'+esc(x.id)+'">checking...</b></li>';}).join('')+'</ul><p class="note holdupd"></p></div>';h+='<p><a href="#mythics">See all mythics</a></p>';}
   if(e.id==='worldbosses')h+='<div class="grid wide">'+D.wbosses.map(function(x){return bossCard(x,true);}).join('')+'</div>';
   app.innerHTML=h;
 }
@@ -786,6 +786,15 @@ function route(){
   [].forEach.call(nav.querySelectorAll('a'),function(a){a.classList.toggle('on',a.getAttribute('data-s')===sec);});
   var on=nav.querySelector('a.on');if(on&&on.scrollIntoView)on.scrollIntoView({block:'nearest',inline:'center'});
   window.scrollTo(0,0);
+  fillHolders();
+}
+var HOLD=null,HOLDAT=0;
+function fillHolders(){
+  var els=app.querySelectorAll('.holder');if(!els.length)return;
+  function put(){[].forEach.call(app.querySelectorAll('.holder'),function(el){var n=HOLD&&HOLD.h?HOLD.h[el.getAttribute('data-m')]:null;el.textContent=HOLD?(n||'Nobody yet - still out in the world'):'unknown right now';});
+    var u=app.querySelector('.holdupd');if(u&&HOLD&&HOLD.updated)u.textContent='Updated '+new Date(HOLD.updated).toLocaleString()+'. Refreshes about every 10 minutes.';}
+  if(HOLD&&Date.now()-HOLDAT<60000){put();return;}
+  fetch('holders.json?'+Date.now(),{cache:'no-store'}).then(function(r){return r.ok?r.json():null;}).then(function(j){HOLD=j;HOLDAT=Date.now();put();}).catch(function(){put();});
 }
 window.addEventListener('hashchange',route);
 route();
