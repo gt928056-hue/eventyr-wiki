@@ -203,7 +203,7 @@ function pNext(parts){
 function pWeapons(){var l=D.items.filter(function(e){return e.cat==='weapons';}).sort(sortItems);listPage('weapons','Weapons','Every weapon and what its moves do. Tap one to see its moves in plain words. Secret weapons stay hidden until someone finds them.',l,itemCard,itemFilters(l));}
 function pArmor(){
   var l=D.items.filter(function(e){return e.cat==='armor';}).sort(sortItems);
-  listPage('armor','Armor and Sets','Wear four pieces for the set bonus. Crafting upgrades accept any matching armor piece from the previous tier and keep its gems and reforge. Late armor also drops from bosses and End treasuries; world-boss crates have a separate 40% armor roll. Accessories work from your off-hand.',l,itemCard,itemFilters(l));
+  listPage('armor','Armor and Sets','Wear all four pieces of a set for its bonus. Accessories work from your off-hand.',l,itemCard,itemFilters(l));
   var sets=D.sets.slice().sort(function(a,b){return a.tier-b.tier;});
   document.getElementById('flt').insertAdjacentHTML('beforebegin','<h2>Armor sets</h2><div class="grid">'+sets.map(setCard).join('')+'</div><h2>All armor and accessories</h2>');
 }
@@ -275,7 +275,7 @@ function inShort(e){
 function pItem(e){
   var sec=e.myth?'mythics':e.cat;
   if(e.secret){
-    app.innerHTML=crumbs(sec,'Secret')+'<div class="detail"><div class="showcase r-secret" style="--c:var(--secret)">'+ic(e.img,192,'')+'<h1 class="px">Secret: ???</h1><div class="chips"><span class="chip">'+esc(e.tl)+'</span>'+rchip('secret')+'</div></div><div>'+(e.hint?'<div class="panel"><h3>A lead</h3><p><i>'+esc(e.hint)+'</i></p></div>':'')+'<div class="panel"><h3>A secret weapon</h3><p>Nobody knows what this is until someone finds it in play. It is never crafted and never sold. Keep your eyes open: the world rewards people who try strange things.</p></div><div class="panel"><h3>Copy for AI</h3>'+copyBtn(e.r)+'</div></div></div>';
+    app.innerHTML=crumbs(sec,'Secret')+'<div class="detail"><div class="showcase r-secret" style="--c:var(--secret)">'+ic(e.img,192,'')+'<h1 class="px">Secret: ???</h1><div class="chips"><span class="chip">'+esc(e.tl)+'</span>'+rchip('secret')+'</div></div><div><div class="panel"><h3>A secret weapon</h3><p>Nobody knows what this is until someone finds it in play. It is never crafted and never sold. Keep your eyes open: the world rewards people who try strange things.</p></div><div class="panel"><h3>Copy for AI</h3>'+copyBtn(e.r)+'</div></div></div>';
     var s=app.querySelector('.showcase .ic');if(s)s.style.filter='brightness(0) drop-shadow(0 0 14px #a3122a)';
     return;
   }
@@ -288,7 +288,7 @@ function pItem(e){
     h+='<div class="panel"><h3>'+esc(e.myth.epithet)+'</h3><p style="margin:0 0 6px">'+esc(e.myth.playstyle)+'</p>'+(e.myth.whisper?'<p class="note">When claimed: &ldquo;'+esc(e.myth.whisper)+'&rdquo;</p>':'')+'</div>';
     h+='<div class="panel"><h3>Mythic moves</h3><div class="moves">'+e.myth.moves.map(function(m){var pas=/Passive|Awakening/.test(m.t);return '<div class="move"><span class="key'+(m.ult?' ult':pas?' pas':'')+'">'+esc(m.t)+'</span><div><b>'+esc(m.name)+'</b><p>'+esc(m.text)+'</p>'+(m.mech?'<div class="mech">'+esc(m.mech)+'</div>':'')+'</div><span></span></div>';}).join('')+'</div></div>';
     if(e.ab.length)h+='<div class="panel"><h3>Ability details and cooldowns</h3>'+movesHtml(e.ab)+'</div>';
-    h+='<div class="panel"><h3>Only one exists</h3><p style="margin:0">There is exactly one '+esc(e.name)+' on the server. <a href="#sys/mythic_rules">Read the mythic rules</a>.</p><p style="margin:8px 0 0">Held by: <b class="holder" data-m="'+esc(e.id)+'">checking...</b></p></div>';
+    h+='<div class="panel"><h3>Only one exists</h3><p style="margin:0">There is exactly one '+esc(e.name)+' on the server. <a href="#sys/mythic_rules">Read the mythic rules</a>.</p></div>';
   }else{
     h+='<div class="panel"><h3>What it does</h3>'+(e.type==='artifact'&&e.lore?'<p style="margin:0 0 8px;font-size:16px">'+esc(e.lore)+'</p>':'')+(e.ab.length?movesHtml(e.ab):(e.type==='artifact'?'':'<p style="margin:0;color:var(--mut)">No special moves: it is all about its stats.</p>'))+'</div>';
   }
@@ -375,6 +375,7 @@ function pStruct(e){
 }
 function pSys(e){
   var h=crumbs('systems',e.name)+'<div class="pagehead"><div><h1>'+esc(e.name)+'</h1><p>'+esc(e.sum)+'</p></div>'+copyBtn(e.r)+'</div>';
+  if(e.img)h+=img(e.img,'render',e.name);
   var R=D.renders;
   var pic={gangs:R.gangs_pets,mage:R.mage,ores:null};
   if(e.id==='ores')h+='<div class="grid" style="margin-top:14px">'+D.ores.map(oreCard).join('')+'</div>';
@@ -387,7 +388,7 @@ function pSys(e){
     h+='</div>';
   });
   if(pic[e.id])h+='<h2>Gallery</h2>'+img(pic[e.id],'render',e.name);
-  if(e.id==='mythic_rules'){h+='<div class="panel"><h3>Who holds each mythic (live)</h3><ul class="plain">'+D.items.filter(function(x){return x.myth;}).map(function(x){return '<li><a href="#'+x.r+'">'+esc(x.name)+'</a>: <b class="holder" data-m="'+esc(x.id)+'">checking...</b></li>';}).join('')+'</ul><p class="note holdupd"></p></div>';h+='<p><a href="#mythics">See all mythics</a></p>';}
+  if(e.id==='mythic_rules')h+='<p><a href="#mythics">See all mythics</a></p>';
   if(e.id==='worldbosses')h+='<div class="grid wide">'+D.wbosses.map(function(x){return bossCard(x,true);}).join('')+'</div>';
   app.innerHTML=h;
 }
@@ -786,15 +787,6 @@ function route(){
   [].forEach.call(nav.querySelectorAll('a'),function(a){a.classList.toggle('on',a.getAttribute('data-s')===sec);});
   var on=nav.querySelector('a.on');if(on&&on.scrollIntoView)on.scrollIntoView({block:'nearest',inline:'center'});
   window.scrollTo(0,0);
-  fillHolders();
-}
-var HOLD=null,HOLDAT=0;
-function fillHolders(){
-  var els=app.querySelectorAll('.holder');if(!els.length)return;
-  function put(){[].forEach.call(app.querySelectorAll('.holder'),function(el){var n=HOLD&&HOLD.h?HOLD.h[el.getAttribute('data-m')]:null;el.textContent=HOLD?(n||'Nobody yet - still out in the world'):'unknown right now';});
-    var u=app.querySelector('.holdupd');if(u&&HOLD&&HOLD.updated)u.textContent='Updated '+new Date(HOLD.updated).toLocaleString()+'. Refreshes about every 10 minutes.';}
-  if(HOLD&&Date.now()-HOLDAT<60000){put();return;}
-  fetch('holders.json?'+Date.now(),{cache:'no-store'}).then(function(r){return r.ok?r.json():null;}).then(function(j){HOLD=j;HOLDAT=Date.now();put();}).catch(function(){put();});
 }
 window.addEventListener('hashchange',route);
 route();
