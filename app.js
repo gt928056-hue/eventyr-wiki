@@ -203,7 +203,7 @@ function pNext(parts){
 function pWeapons(){var l=D.items.filter(function(e){return e.cat==='weapons';}).sort(sortItems);listPage('weapons','Weapons','Every weapon and what its moves do. Tap one to see its moves in plain words. Secret weapons stay hidden until someone finds them.',l,itemCard,itemFilters(l));}
 function pArmor(){
   var l=D.items.filter(function(e){return e.cat==='armor';}).sort(sortItems);
-  listPage('armor','Armor and Sets','Wear all four pieces of a set for its bonus. Accessories work from your off-hand.',l,itemCard,itemFilters(l));
+  listPage('armor','Armor and Sets','Wear four pieces for the set bonus. Crafting upgrades accept any matching armor piece from the previous tier and keep its gems and reforge. Late armor also drops from bosses and End treasuries; world-boss crates have a separate 40% armor roll. Accessories work from your off-hand.',l,itemCard,itemFilters(l));
   var sets=D.sets.slice().sort(function(a,b){return a.tier-b.tier;});
   document.getElementById('flt').insertAdjacentHTML('beforebegin','<h2>Armor sets</h2><div class="grid">'+sets.map(setCard).join('')+'</div><h2>All armor and accessories</h2>');
 }
