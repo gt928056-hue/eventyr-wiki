@@ -275,7 +275,7 @@ function inShort(e){
 function pItem(e){
   var sec=e.myth?'mythics':e.cat;
   if(e.secret){
-    app.innerHTML=crumbs(sec,'Secret')+'<div class="detail"><div class="showcase r-secret" style="--c:var(--secret)">'+ic(e.img,192,'')+'<h1 class="px">Secret: ???</h1><div class="chips"><span class="chip">'+esc(e.tl)+'</span>'+rchip('secret')+'</div></div><div><div class="panel"><h3>A secret weapon</h3><p>Nobody knows what this is until someone finds it in play. It is never crafted and never sold. Keep your eyes open: the world rewards people who try strange things.</p></div><div class="panel"><h3>Copy for AI</h3>'+copyBtn(e.r)+'</div></div></div>';
+    app.innerHTML=crumbs(sec,'Secret')+'<div class="detail"><div class="showcase r-secret" style="--c:var(--secret)">'+ic(e.img,192,'')+'<h1 class="px">Secret: ???</h1><div class="chips"><span class="chip">'+esc(e.tl)+'</span>'+rchip('secret')+'</div></div><div>'+(e.hint?'<div class="panel"><h3>A lead</h3><p><i>'+esc(e.hint)+'</i></p></div>':'')+'<div class="panel"><h3>A secret weapon</h3><p>Nobody knows what this is until someone finds it in play. It is never crafted and never sold. Keep your eyes open: the world rewards people who try strange things.</p></div><div class="panel"><h3>Copy for AI</h3>'+copyBtn(e.r)+'</div></div></div>';
     var s=app.querySelector('.showcase .ic');if(s)s.style.filter='brightness(0) drop-shadow(0 0 14px #a3122a)';
     return;
   }
