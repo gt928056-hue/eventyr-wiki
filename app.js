@@ -286,6 +286,7 @@ function pItem(e){
     '</div><div>'+inShort(e);
   if(e.myth){
     h+='<div class="panel"><h3>'+esc(e.myth.epithet)+'</h3><p style="margin:0 0 6px">'+esc(e.myth.playstyle)+'</p>'+(e.myth.whisper?'<p class="note">When claimed: &ldquo;'+esc(e.myth.whisper)+'&rdquo;</p>':'')+'</div>';
+    if(e.id==='shadowblade_of_the_monarch')h+='<div class="panel"><a href="#sys/shadowblade_controls">Shadowblade controls and army menu</a></div>';
     h+='<div class="panel"><h3>Mythic moves</h3><div class="moves">'+e.myth.moves.map(function(m){var pas=/Passive|Awakening/.test(m.t);return '<div class="move"><span class="key'+(m.ult?' ult':pas?' pas':'')+'">'+esc(m.t)+'</span><div><b>'+esc(m.name)+'</b><p>'+esc(m.text)+'</p>'+(m.mech?'<div class="mech">'+esc(m.mech)+'</div>':'')+'</div><span></span></div>';}).join('')+'</div></div>';
     if(e.ab.length)h+='<div class="panel"><h3>Ability details and cooldowns</h3>'+movesHtml(e.ab)+'</div>';
     h+='<div class="panel"><h3>Only one exists</h3><p style="margin:0">There is exactly one '+esc(e.name)+' on the server. <a href="#sys/mythic_rules">Read the mythic rules</a>.</p></div>';
@@ -343,7 +344,7 @@ function pBoss(e){
    '<div style="margin:14px 0">'+copyBtn(e.r,'Copy this boss for AI')+'</div><div class="two"><div>'+
    '<div class="panel"><h3>How to summon</h3><ol class="plain">'+e.how.map(function(x){return '<li>'+esc(x)+'</li>';}).join('')+'</ol>'+(e.summon?'<div class="links" style="margin-top:10px">'+lk(e.summon)+(e.arena?lk({r:e.arena.r,n:e.arena.n+' ('+e.arena.dim+')'}):'')+'</div>':'')+(e.summon_rec?'<div style="margin-top:14px">'+recipeHtml(e.summon_rec)+'</div>':'')+'</div>'+
    '<div class="panel"><h3>Stats</h3><div class="stats"><div class="stat"><span>Health</span><b>'+(e.hp/2)+' hearts</b></div><div class="stat"><span>Hits for</span><b>'+(e.dmg/2)+' hearts</b></div><div class="stat"><span>Armor</span><b>'+e.armor+'</b></div><div class="stat"><span>Stage</span><b>'+stage(e.tier)+'</b></div></div></div>'+
-   '<div class="panel"><h3>Drops</h3>'+dropsHtml(e.drops)+'</div>'+(e.minions.length?'<div class="panel"><h3>Minions</h3><div class="links">'+e.minions.map(lk).join('')+'</div></div>':'')+'</div>'+
+   '<div class="panel"><h3>Personal drops</h3><p class="note">Base chances for eligible participants; boss crates and other rewards are separate.</p>'+dropsHtml(e.drops)+'</div>'+(e.minions.length?'<div class="panel"><h3>Minions</h3><div class="links">'+e.minions.map(lk).join('')+'</div></div>':'')+'</div>'+
    '<div><div class="panel"><h3>The fight</h3>'+phasesHtml(e.phases)+'</div></div></div>';
   app.innerHTML=h;
 }
