@@ -19,7 +19,7 @@
 .lbh2{margin:26px 0 4px}
 .lbfirst{display:flex;align-items:center;gap:10px;padding:10px;border-radius:10px;background:rgba(255,255,255,.04)}.lbfirst div{display:flex;flex-direction:column}
 :root{--bg:#0d0b10;--bg2:#15121b;--card:#1a1622;--card2:#221c2c;--line:#2e2639;--txt:#ece6f2;--mut:#a79fb5;--gold:#f2c25b;--gold2:#ffdf8e;
---common:#e8e8e8;--uncommon:#5ee05e;--rare:#4fa3ff;--epic:#b86bff;--legendary:#ffbf2e;--boss:#ff6a3d;--mythic:#ff4a4a;--secret:#a3122a;
+--common:#e8e8e8;--uncommon:#5ee05e;--rare:#4fa3ff;--epic:#b86bff;--legendary:#ffbf2e;--boss:#ff6a3d;--mythic:#ff4a4a;--ascended:#fff1b8;--secret:#a3122a;
 --px:'Press Start 2P',ui-monospace,monospace;--sans:Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;--r:14px}
 *{box-sizing:border-box}html{scroll-behavior:smooth}
 body{margin:0;background:var(--bg);color:var(--txt);font:16px/1.6 var(--sans);-webkit-font-smoothing:antialiased;overflow-x:hidden}
@@ -72,8 +72,8 @@ main{max-width:1280px;margin:auto;padding:0 16px 60px;min-height:70vh}
 .card .meta{font-size:12.5px;color:var(--mut)}
 .card .ic{--s:64px}
 .card.left{align-items:flex-start;text-align:left}
-.r-common{--c:var(--common)}.r-uncommon{--c:var(--uncommon)}.r-rare{--c:var(--rare)}.r-epic{--c:var(--epic)}.r-legendary{--c:var(--legendary)}.r-boss{--c:var(--boss)}.r-mythic{--c:var(--mythic)}.r-secret{--c:var(--secret)}
-.r-legendary,.r-boss,.r-mythic{box-shadow:0 0 22px -10px var(--c)}
+.r-common{--c:var(--common)}.r-uncommon{--c:var(--uncommon)}.r-rare{--c:var(--rare)}.r-epic{--c:var(--epic)}.r-legendary{--c:var(--legendary)}.r-boss{--c:var(--boss)}.r-mythic{--c:var(--mythic)}.r-ascended{--c:var(--ascended)}.r-secret{--c:var(--secret)}
+.r-legendary,.r-boss,.r-mythic,.r-ascended{box-shadow:0 0 22px -10px var(--c)}
 .r-mythic{animation:pulse 3.2s ease-in-out infinite}
 @keyframes pulse{50%{box-shadow:0 0 28px -6px var(--c)}}
 .card.secret .ic{filter:brightness(0) drop-shadow(0 0 6px #a3122a)}

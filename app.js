@@ -3,7 +3,7 @@
 'use strict';
 var D=window.EV, app=document.getElementById('app');
 var EL={storm:'#7fd4ff',fire:'#ff7a3d',void:'#9d6bff',shadow:'#8d8aa8',holy:'#ffe28a',earth:'#c09060',water:'#4aa8ff',arcane:'#d07bff',nature:'#6fd46f',frost:'#bdf0ff',blood:'#e0354d',none:'#8a8494','?':'#a3122a'};
-var RAR=['common','uncommon','rare','epic','legendary','boss','mythic','secret'];
+var RAR=['common','uncommon','rare','epic','legendary','boss','mythic','ascended','secret'];
 var STAGES=['Early game','Mid game','Late game','End game'];
 var ERAS=['Flint','Copper','Iron','Amethyst','Deepsteel','Hellforged','Abyssal','Voidsteel','Starforged'];
 function stage(t){t=t||0;return t<=2?STAGES[0]:t<=4?STAGES[1]:t<=6?STAGES[2]:STAGES[3];}
